@@ -1,0 +1,92 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my @CAPS;
+sub cap {
+	my ($name, $num, %attrs) = @_;
+	$attrs{name} = "CAP_".uc($name);
+	$attrs{num}  = $num;
+	push @CAPS, \%attrs;
+}
+
+cap(
+  chown => 0,
+  summary => 'Make arbitrary changes to file UIDs and GIDs',
+);
+cap(
+  dac_override => 1,
+  summary => 'Bypass file read, write, and execute permission checks.',
+);
+cap(
+  dac_read_search => 2,
+  summary => 'Bypass file read permission checks and directory read and execute permission checks.',
+);
+cap(
+  fowner => 3,
+  sumary => 'Bypass permission checks on operations that normally require the filesystem UID of the process to match the UID of the file.',
+);
+cap(
+  fsetid => 4,
+  summary => 'Don\'t clear set-user-ID and set-group-ID mode bits when a file is modified',
+);
+cap(
+  kill => 5,
+  summary => 'Bypass permission checks for sending signals.',
+);
+cap(
+  setgid => 6,
+  summary => 'Make arbitrary manipulations of process GIDs and supplementary GID list.',
+);
+cap(
+  setuid => 7,
+  summary => 'Make arbitrary manipulations of process UIDs.',
+);
+cap(setpcap => 8);
+cap(linux_immutable => 9);
+cap(net_bind_service => 10);
+cap(net_broadcast => 11);
+cap(net_admin => 12);
+cap(net_raw => 13);
+cap(ipc_lock => 14);
+cap(ipc_owner => 15);
+cap(sys_module => 16);
+cap(sys_rawio => 17);
+cap(sys_chroot => 18);
+cap(sys_ptrace => 19);
+cap(sys_pacct => 20);
+cap(sys_admin => 21);
+cap(sys_root => 22);
+cap(sys_nice => 23);
+cap(sys_resource => 24);
+cap(sys_time => 25);
+cap(sys_tty_config => 26);
+cap(mknod => 27);
+cap(lease => 28);
+cap(audit_write => 29);
+cap(audit_control => 30);
+cap(setfcap => 31);
+cap(mac_override => 32);
+cap(mac_admin => 33);
+cap(syslog => 34);
+cap(wake_alarm => 35);
+cap(block_suspend => 36);
+cap(audit_read => 37);
+
+if ($ARGV[0]) {
+  for my $raw (@ARGV) {
+    my $n = do { no warnings; int(hex($raw)); };
+    print "$raw ($n):\n";
+    for my $cap (@CAPS) {
+      if ($n & $cap->{num}) {
+        printf "%-20s  %2.0d (%#.2x)", $cap->{name}, $cap->{num}, $cap->{num};
+        if ($cap->{summary}) {
+          print "  $cap->{summary}";
+        }
+        print "\n";
+      }
+    }
+    print "\n";
+  }
+  exit 0;
+}
