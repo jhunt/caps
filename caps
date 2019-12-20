@@ -7,6 +7,7 @@ sub cap {
 	my ($name, $num, %attrs) = @_;
 	$attrs{name} = "CAP_".uc($name);
 	$attrs{num}  = $num;
+	$attrs{flag} = (1 << $num);
 	push @CAPS, \%attrs;
 }
 
@@ -166,10 +167,14 @@ cap(
 if ($ARGV[0]) {
   for my $raw (@ARGV) {
     my $n = do { no warnings; int(hex($raw)); };
-    print "$raw:\n";
+    my $count = 0;
     for my $cap (@CAPS) {
-      if ($n & $cap->{num}) {
-        printf "  %-20s  %2.0d (%#.2x)", $cap->{name}, $cap->{num}, $cap->{num};
+      ++$count if $n & $cap->{flag};
+    }
+    print "$raw ($count):\n";
+    for my $cap (@CAPS) {
+      if ($n & $cap->{flag}) {
+        printf "  %-20s  %2.1d (%#016x)", $cap->{name}, $cap->{num}, $cap->{flag};
         if ($cap->{summary}) {
           print "  $cap->{summary}";
         }
