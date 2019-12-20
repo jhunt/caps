@@ -25,7 +25,7 @@ cap(
 );
 cap(
   fowner => 3,
-  summary => 'Bypass permission checks on operations that normally require the filesystem UID of the process to match the UID of the file.',
+  summary => 'Bypass file ownership / process owner equality permission checks.',
 );
 cap(
   fsetid => 4,
