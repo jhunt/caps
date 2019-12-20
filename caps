@@ -1,6 +1,12 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Getopt::Long;
+
+my %opts;
+GetOptions(\%opts, qw/
+	negate|n
+/) or die "usage: $0 [--negate] CAP-HEX [CAP-HEX ...]\n";
 
 my @CAPS;
 sub cap {
@@ -167,6 +173,10 @@ cap(
 if ($ARGV[0]) {
   for my $raw (@ARGV) {
     my $n = do { no warnings; int(hex($raw)); };
+    if ($opts{negate}) {
+      $raw = "~$raw";
+      $n = ~$n;
+    }
     my $count = 0;
     for my $cap (@CAPS) {
       ++$count if $n & $cap->{flag};
