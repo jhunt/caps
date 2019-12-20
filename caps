@@ -24,7 +24,7 @@ cap(
 );
 cap(
   fowner => 3,
-  sumary => 'Bypass permission checks on operations that normally require the filesystem UID of the process to match the UID of the file.',
+  summary => 'Bypass permission checks on operations that normally require the filesystem UID of the process to match the UID of the file.',
 );
 cap(
   fsetid => 4,
@@ -42,44 +42,134 @@ cap(
   setuid => 7,
   summary => 'Make arbitrary manipulations of process UIDs.',
 );
-cap(setpcap => 8);
-cap(linux_immutable => 9);
-cap(net_bind_service => 10);
-cap(net_broadcast => 11);
-cap(net_admin => 12);
-cap(net_raw => 13);
-cap(ipc_lock => 14);
-cap(ipc_owner => 15);
-cap(sys_module => 16);
-cap(sys_rawio => 17);
-cap(sys_chroot => 18);
-cap(sys_ptrace => 19);
-cap(sys_pacct => 20);
-cap(sys_admin => 21);
-cap(sys_root => 22);
-cap(sys_nice => 23);
-cap(sys_resource => 24);
-cap(sys_time => 25);
-cap(sys_tty_config => 26);
-cap(mknod => 27);
-cap(lease => 28);
-cap(audit_write => 29);
-cap(audit_control => 30);
-cap(setfcap => 31);
-cap(mac_override => 32);
-cap(mac_admin => 33);
-cap(syslog => 34);
-cap(wake_alarm => 35);
-cap(block_suspend => 36);
-cap(audit_read => 37);
+cap(
+  setpcap => 8,
+  summary => 'Manage capability sets (from bounded / inherited set).',
+);
+cap(
+  linux_immutable => 9,
+  summary => 'Set files to be immutable or append-only.',
+);
+cap(
+  net_bind_service => 10,
+  summary => 'Bind a socket to Internet domain privileged ports.',
+);
+cap(
+  net_broadcast => 11,
+  summary => 'Make socket broadcasts, and listen to multicasts.  DEPRECATED.',
+);
+cap(
+  net_admin => 12,
+  summary => 'Manage network configuration and interfaces (broad scope).',
+);
+cap(
+  net_raw => 13,
+  summary => 'Use RAW and PACKET sockets.',
+);
+cap(
+  ipc_lock => 14,
+  summary => 'Lock memory, via mlock(2) and friends.',
+);
+cap(
+  ipc_owner => 15,
+  summary => 'Bypass permission checks for operations on System V IPC objects.',
+);
+cap(
+  sys_module => 16,
+  summary => 'Load and unload kernel modules.',
+);
+cap(
+  sys_rawio => 17,
+  summary => 'Perform I/O port operations',
+);
+cap(
+  sys_chroot => 18,
+  summary => 'Use chroot(2) and manage kernel namespaces.',
+);
+cap(
+  sys_ptrace => 19,
+  summary => 'Trace arbitrary processes using ptrace.',
+);
+cap(
+  sys_pacct => 20,
+  summary => 'Use the acct(2) system call.',
+);
+cap(
+  sys_admin => 21,
+  summary => 'Basically be root again.  This is a HUGE scope.',
+);
+cap(
+  sys_boot => 22,
+  summary => 'Use the reboot(2) system call',
+);
+cap(
+  sys_nice => 23,
+  summary => 'Raise process nice value and change the nice value for arbitrary processes.',
+);
+cap(
+  sys_resource => 24,
+  summary => 'Manage resource limits on filesystems, ulimits, etc.',
+);
+cap(
+  sys_time => 25,
+  summary => 'Set the system clock and manage realtime clock(s).',
+);
+cap(
+  sys_tty_config => 26,
+  summary => 'Manage virtual teletype terminals and their settings.',
+);
+cap(
+  mknod => 27,
+  summary => 'Create special files using mknod(2).',
+);
+cap(
+  lease => 28,
+  summary => 'Establish leases on arbitrary files via fcntl(2).',
+);
+cap(
+  audit_write => 29,
+  summary => 'Write records to kernel auditing log.',
+);
+cap(
+  audit_control => 30,
+  summary => 'Manage kernel auditing.',
+);
+cap(
+  setfcap => 31,
+  summary => 'Set arbitrary capabilities on a file.',
+);
+cap(
+  mac_override => 32,
+  summary => 'Override Mandatory Access Control (MAC).  Implemented for the Smack LSM.',
+);
+cap(
+  mac_admin => 33,
+  summary => 'Allow MAC configuration or state changes.  Implemented for the Smack Linux Security Module (LSM).',
+);
+cap(
+  syslog => 34,
+  summary => 'Perform privileged syslog(2) operations.',
+);
+cap(
+  wake_alarm => 35,
+  summary => 'Trigger something that will wake up the system.',
+);
+cap(
+  block_suspend => 36,
+  summary => 'Employ features that can block system suspend.',
+);
+cap(
+  audit_read => 37,
+  summary => 'Allow reading the audit log via a multicast netlink socket.',
+);
 
 if ($ARGV[0]) {
   for my $raw (@ARGV) {
     my $n = do { no warnings; int(hex($raw)); };
-    print "$raw ($n):\n";
+    print "$raw:\n";
     for my $cap (@CAPS) {
       if ($n & $cap->{num}) {
-        printf "%-20s  %2.0d (%#.2x)", $cap->{name}, $cap->{num}, $cap->{num};
+        printf "  %-20s  %2.0d (%#.2x)", $cap->{name}, $cap->{num}, $cap->{num};
         if ($cap->{summary}) {
           print "  $cap->{summary}";
         }
