@@ -1,0 +1,38 @@
+0 chown Make arbitrary changes to file UIDs and GIDs
+1 dac_override Bypass file read, write, and execute permission checks.
+2 dac_read_search Bypass file read permission checks and directory read and execute permission checks.
+3 fowner Bypass file ownership / process owner equality permission checks.
+4 fsetid Don't clear set-user-ID and set-group-ID mode bits when a file is modified
+5 kill Bypass permission checks for sending signals.
+6 setgid Make arbitrary manipulations of process GIDs and supplementary GID list.
+7 setuid Make arbitrary manipulations of process UIDs.
+8 setpcap Manage capability sets (from bounded / inherited set).
+9 linux_immutable Set files to be immutable or append-only.
+10 net_bind_service Bind a socket to Internet domain privileged ports.
+11 net_broadcast Make socket broadcasts, and listen to multicasts.  DEPRECATED.
+12 net_admin Manage network configuration and interfaces (broad scope).
+13 net_raw Use RAW and PACKET sockets.
+14 ipc_lock Lock memory, via mlock(2) and friends.
+15 ipc_owner Bypass permission checks for operations on System V IPC objects.
+16 sys_module Load and unload kernel modules.
+17 sys_rawio Perform I/O port operations
+18 sys_chroot Use chroot(2) and manage kernel namespaces.
+19 sys_ptrace Trace arbitrary processes using ptrace.
+20 sys_pacct Use the acct(2) system call.
+21 sys_admin Basically be root again.  This is a HUGE scope.
+22 sys_boot Use the reboot(2) system call
+23 sys_nice Raise process nice value and change the nice value for arbitrary processes.
+24 sys_resource Manage resource limits on filesystems, ulimits, etc.
+25 sys_time Set the system clock and manage realtime clock(s).
+26 sys_tty_config Manage virtual teletype terminals and their settings.
+27 mknod Create special files using mknod(2).
+28 lease Establish leases on arbitrary files via fcntl(2).
+29 audit_write Write records to kernel auditing log.
+30 audit_control Manage kernel auditing.
+31 setfcap Set arbitrary capabilities on a file.
+32 mac_override Override Mandatory Access Control (MAC).  Implemented for the Smack LSM.
+33 mac_admin Allow MAC configuration or state changes.  Implemented for the Smack Linux Security Module (LSM).
+34 syslog Perform privileged syslog(2) operations.
+35 wake_alarm Trigger something that will wake up the system.
+36 block_suspend Employ features that can block system suspend.
+37 audit_read Allow reading the audit log via a multicast netlink socket.

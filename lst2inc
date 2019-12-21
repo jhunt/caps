@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print <<EOF;
+static struct {
+	int bit;
+	const char *name;
+	const char *summary;
+} CAPS[] = {
+EOF
+while (<>) {
+	chomp;
+	my ($num, $name, $summary) = split ' ', $_, 3;
+	$name =~ s/"/\\"/g;
+	$summary =~ s/"/\\"/g;
+	printf "\t{ .bit = % 2d, .name = \"%s\",\n", $num, $name;
+	printf "\t  .summary = \"%s\" },\n", $summary;
+}
+
+print <<EOF;
+	{ ~0, NULL, NULL }
+};
+EOF

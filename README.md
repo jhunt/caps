@@ -48,4 +48,19 @@ Over time, I hope to flesh out the script with more explanation and detail
 about the capabilities themselves, what they do, how to set them, etc.  For
 now, check out `capabilities(7)`.
 
-Requires Perl.
+
+Building From Source
+--------------------
+
+This repository contains a Makefile that will compile a static
+executable, suitable for use in an otherwise empty Docker image.
+
+    make build
+
+To make the docker image locally:
+
+    make docker
+
+To fork and run it under your own DockerHub account:
+
+    make IMAGE=yourusername docker push
