@@ -68,6 +68,8 @@ int display(int negate, const char *raw) {
 			printf("\n");
 		}
 	}
+
+	return 0;
 }
 
 int main(int argc, char **argv) {
@@ -110,7 +112,9 @@ int main(int argc, char **argv) {
 				fclose(in);
 
 				/* null-terminate the CapPrm line... */
-				for (p = buf; *p != '\r' && *p != '\n'; p++); *p = '\0';
+				for (p = buf; *p != '\r' && *p != '\n'; p++)
+					;
+				*p = '\0';
 
 				printf("(via %s)\n", PROC_SELF_STATUS);
 				return display(negate, buf+8);
