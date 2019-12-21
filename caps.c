@@ -18,7 +18,7 @@
 #define cap_flag(c)    (1llu << cap_bit(c))
 
 #define for_each_cap(c) for (c = 0; cap_name(c) != NULL; c++)
-#define has(v,c) ((v) & cap_flag(c))
+#define has(v,c) ((v) & cap_flag(c) ? 1 : 0)
 
 int display(int negate, const char *raw) {
 	unsigned long long v = 0;
