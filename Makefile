@@ -1,4 +1,3 @@
-CFLAGS  += -static
 IMAGE   := huntprod/caps
 VERSION := latest
 
@@ -12,6 +11,7 @@ caps.inc: caps.lst
 caps.c: caps.inc
 
 docker:
+	make CFLAGS=-static clean caps
 	docker build -t $(IMAGE):$(VERSION) .
 push: docker
 	docker push $(IMAGE):$(VERSION)
